@@ -1,0 +1,7 @@
+---
+# nonsensitive data
+mysql_port: 3306
+mysql_bind_address: "0.0.0.0"
+
+# sensitive data
+mysql_root_db_pass: "{{ vault_mysql_root_db_pass }}"

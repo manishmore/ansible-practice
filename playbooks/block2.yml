@@ -1,0 +1,12 @@
+ tasks:
+   - name: Attempt and gracefull roll back demo
+     block:
+       - debug: msg='I execute normally'
+       - command: /bin/false
+       - debug: msg='I never execute, due to the above task failing'
+     rescue:
+       - debug: msg='I caught an error'
+       - command: /bin/false
+       - debug: msg='I also never execute :-('
+     always:
+       - debug: msg="this always executes"

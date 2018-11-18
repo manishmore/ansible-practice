@@ -1,0 +1,30 @@
+---
+- hosts: dbservers
+  gather_facts: false
+  become: true
+  tasks:
+    - name: install MySQL database tools
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - python-mysqldb
+
+    - name: install MySQL server
+      apt: name=mysql-server state=present update_cache=yes
+
+    - name: ensure MySQL started
+      service: name=mysql state=started enabled=yes
+
+    - name: ensure MySQL listening on all ports
+      lineinfile: dest=/etc/mysql/my.cnf regexp=^bind-address
+                  line="bind-address = 0.0.0.0"
+      notify: restart mysql
+
+    - name: create test database
+      mysql_db: name=test state=present
+
+    - name: create test database user
+      mysql_user: name=test password=test priv=test.*:ALL host='%' state=present
+
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted

@@ -1,0 +1,36 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Touch a file on the web server
+      shell: "echo 'webserver1' > /opt/whoami"
+
+- hosts: dbservers
+  become: true
+  tasks:
+    - name: Touch a file on the db server
+      shell: "echo 'dbserver1' > /opt/whoami"
+
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Collect database server name
+      register: dbserver_whoami
+      shell: cat /opt/whoami
+      delegate_to: "{{ groups['dbservers'][0] }}"
+      ignore_errors: True
+
+    - name: Store database server name
+      shell: "echo '{{ dbserver_whoami.stdout }}' > /opt/dbserver"
+
+- hosts: dbservers
+  become: true
+  tasks:
+    - name: Collect webserver name
+      register: webserver_whoami
+      shell: cat /opt/whoami
+      delegate_to: "{{ groups['webservers'][0] }}"
+      ignore_errors: true
+
+    - name: Store webserver name
+      shell: "echo '{{ webserver_whoami.stdout }}' > /opt/webserver"

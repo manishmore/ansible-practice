@@ -1,0 +1,21 @@
+---
+- hosts: webservers
+  gather_facts: false
+  vars:
+    data: "{{ lookup('file', './lookup.txt') }}"
+
+  tasks:
+    # File lookup
+    - debug: msg="File contents {{ data }}"
+
+    # CSV lookup
+    - debug: msg="The atomic number of Lithium is {{ lookup('csvfile', 'Li file=lookup.csv delimiter=,') }}"
+
+    # INI lookup
+    - debug: msg="User in production  is {{ lookup('ini', 'user section=production  file=lookup.ini') }}"
+
+    # pipe lookup
+    - debug: msg="{{ lookup('pipe', 'hostname') }}"
+
+    # env lookup
+    - debug: msg="{{ lookup('env', 'SHELL') }}"

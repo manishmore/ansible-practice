@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  vars_prompt:
+    - name: share_user
+      prompt: "What is your username?"
+      default: "admin"
+
+    - name: share_pass
+      prompt: "What is your password?"
+      private: yes
+      encrypt: "sha512_crypt"
+      confirm: yes
+      salt_size: 7

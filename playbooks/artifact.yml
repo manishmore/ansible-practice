@@ -1,0 +1,37 @@
+---
+- hosts: appservers
+  become: true
+  tasks:
+    # Create a random string used to construct temporary path to store intermediate aggregated data
+    - shell: uuidgen
+      register: uuid_build
+
+    - name: Create UUID string from uuidgen.output
+      set_fact:
+        temp_dir_cf: "{{ uuid_build.stdout | to_uuid }}/cf"
+
+    - name: Create UUID string from uuidgen.output
+      set_fact:
+        temp_dir_pl: "{{ uuid_build.stdout | to_uuid }}/pl"
+
+    # Create working subdirectory, cf for pipeline and pl for all others
+    # In pl, 2 files, one is config and second is template for each resource
+    # As pipeline requires two files, template and config to replace configurationa at runtime
+
+    - name: "Create the working subdirectory {{ temp_dir_cf }}"
+      file: path="./{{ temp_dir_cf }}" state=directory mode=0755
+
+    - name: "Create the working subdirectory {{ temp_dir_pl }}"
+      file: path="./{{ temp_dir_pl }}" state=directory mode=0755
+
+    # Create a random string used to construct temporary path to store intermediate aggregated data
+    - shell: uuidgen
+      register: uuid_build
+
+    - name: Create UUID string from uuidgen.output
+      set_fact:
+        result_dir: "{{ uuid_build.stdout | to_uuid }}"
+
+    # Create working subdirectory
+    - name: "Create the working subdirectory {{ result_dir }}"
+      file: path="./{{ result_dir }}" state=directory mode=0755

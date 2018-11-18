@@ -1,0 +1,1 @@
+{"virtualbox":{"/vagrant_data":{"guestpath":"/vagrant_data","hostpath":"C:/ansible-practice/labtwo-lamp/provisioning","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/ansible-practice/labtwo-lamp","disabled":false,"__vagrantfile":true}}}

@@ -1,0 +1,6 @@
+---
+- hosts: mysqlserver
+  become: true
+  tags: database
+  roles:
+    - { role: bennojoy.mysql, tags: ['mysql', 'db']}
