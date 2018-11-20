@@ -1,17 +1,11 @@
 ---
-- name: Check out drush 8.x branch
+- name: clone Drush repository
   git:
     repo: https://github.com/drush-ops/drush.git
-    version: 8.x
+    version: "9.3.0"
     dest: /opt/drush
 
-- name: Install Drush dependencies with composer
-  shell: >
-    /usr/local/bin/composer Install
-    chdir=/opt/drush
-    creates=/opt/drush/vendor/autoload.php
-
-- name: Create drush bin Symbolic link
+- name: create the Drush executable link
   file:
     src: /opt/drush/drush
     dest: /usr/local/bin/drush

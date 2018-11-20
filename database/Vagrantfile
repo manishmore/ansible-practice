@@ -45,8 +45,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "vagrant7" do |vagrant7|
     vagrant7.vm.box = "ubuntu/trusty64"
     vagrant7.vm.network :private_network, ip: "192.168.55.55"
-    vagrant7.vm.network "forwarded_port", guest: 80, host: 8080
-    vagrant7.vm.network "forwarded_port", guest: 443, host: 8443
+    vagrant7.vm.network "forwarded_port", guest: 80, host: 8085
+    vagrant7.vm.network "forwarded_port", guest: 443, host: 8087
   end
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

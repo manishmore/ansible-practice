@@ -16,6 +16,8 @@
   tasks:
     - include: tasks/common.yml
 
+    - include: tasks/version.yml
+
     - include: tasks/apache.yml
 
     - include: tasks/php.yml

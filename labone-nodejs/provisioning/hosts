@@ -1,2 +1,2 @@
 [nodeserver]
-vagrant4 ansible_host=127.0.0.1 ansible_port=2222
+vagrant4 ansible_host=127.0.0.1 ansible_port=2202

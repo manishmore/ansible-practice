@@ -1,0 +1,6 @@
+---
+- name: role usage example
+  hosts: localhost
+
+  roles: 
+  - motd
